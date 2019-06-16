@@ -24,6 +24,28 @@ config :shoehorn,
 
 config :logger, backends: [RingLogger]
 
+key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
+
+config :nerves_network, :default,
+  wlan0: [
+    ssid: System.get_env("NERVES_NETWORK_SSID"),
+    psk: System.get_env("NERVES_NETWORK_PSK"),
+    key_mgmt: String.to_atom(key_mgmt)
+  ]
+
+config :web_monitor, WebMonitorWeb.Endpoint,
+  url: [host: "localhost"],
+  http: [port: 80],
+  secret_key_base: "RbwrKL9QXJGwD1JlVCMC6Xlbz2GvK+MOhgCLWombhL5PX8Ulx9544FC0d1yIKKj5",
+  root: Path.dirname(__DIR__),
+  server: true,
+  render_errors: [view: WebMonitorWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: WebMonitor.PubSub, adapter: Phoenix.PubSub.PG2],
+  code_reloader: false,
+  check_origin: false
+
+config :phoenix, :json_library, Jason
+
 # Authorize the device to receive firmware using your public key.
 # See https://hexdocs.pm/nerves_firmware_ssh/readme.html for more information
 # on configuring nerves_firmware_ssh.

@@ -34,6 +34,9 @@ defmodule Firmware.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:web_monitor, path: "../web_monitor"},
+      {:beacon, path: "../beacon"},
+
       # Dependencies for all targets
       {:nerves, "~> 1.4", runtime: false},
       {:shoehorn, "~> 0.4"},
