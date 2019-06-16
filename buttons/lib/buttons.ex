@@ -5,6 +5,8 @@ defmodule Buttons do
 
   use GenServer
 
+  @hook Application.get_env(:buttons, :idobata_hook)
+
   alias Circuits.GPIO
   require Logger
 
@@ -39,6 +41,10 @@ defmodule Buttons do
 
     # WebMonitorWeb.Endpoint.broadcast("room:lobby", event, %{button: button})
     state.handler.(event, button)
+
+    @hook
+    |> ExIdobata.new_hook()
+    |> ExIdobata.post(source: "button #{button} #{event}")
 
     {:noreply, state}
   end
