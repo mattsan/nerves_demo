@@ -49,6 +49,9 @@ config :phoenix, :json_library, Jason
 config :buttons,
   idobata_hook: System.get_env("IDOBATA_HOOK")
 
+config :beacon,
+  idobata_hook: System.get_env("IDOBATA_HOOK")
+
 # Authorize the device to receive firmware using your public key.
 # See https://hexdocs.pm/nerves_firmware_ssh/readme.html for more information
 # on configuring nerves_firmware_ssh.

@@ -9,9 +9,10 @@ use Mix.Config
 # third-party users, it should be done in your "mix.exs" file.
 
 # You can configure your application as:
-#
-#     config :beacon, key: :value
-#
+
+config :beacon,
+  idobata_hook: System.get_env("IDOBATA_HOOK")
+
 # and access this configuration in your application as:
 #
 #     Application.get_env(:beacon, :key)
