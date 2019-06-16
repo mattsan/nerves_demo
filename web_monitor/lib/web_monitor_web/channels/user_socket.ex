@@ -2,8 +2,7 @@ defmodule WebMonitorWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", WebMonitorWeb.RoomChannel
-
+  channel "room:lobby", WebMonitorWeb.RoomChannel
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into

@@ -1,3 +1,13 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.phx-hero.pressed {
+  background-color: #ff4040;
+}
+
+.demo {
+  color: white;
+  font-size: 700%;
+  font-weight: bold;
+}

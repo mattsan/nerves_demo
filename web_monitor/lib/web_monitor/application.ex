@@ -12,6 +12,7 @@ defmodule WebMonitor.Application do
       WebMonitorWeb.Endpoint
       # Starts a worker by calling: WebMonitor.Worker.start_link(arg)
       # {WebMonitor.Worker, arg},
+      # {Buttons, [handler: fn event, button -> WebMonitorWeb.Endpoint.broadcast("room:lobby", event, %{button: button}) end]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
