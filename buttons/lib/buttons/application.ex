@@ -9,7 +9,7 @@ defmodule Buttons.Application do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: Buttons.Worker.start_link(arg)
-      # {Buttons.Worker, arg}
+      # {Buttons, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

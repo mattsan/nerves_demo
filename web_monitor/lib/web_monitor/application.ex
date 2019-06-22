@@ -9,7 +9,7 @@ defmodule WebMonitor.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      WebMonitorWeb.Endpoint
+      WebMonitorWeb.Endpoint,
       # Starts a worker by calling: WebMonitor.Worker.start_link(arg)
       # {WebMonitor.Worker, arg},
     ]
