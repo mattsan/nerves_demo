@@ -14,15 +14,14 @@ defmodule Beacon do
   def init(state) do
     :timer.send_interval(10_000, :beacon)
     initialized_at = NaiveDateTime.utc_now()
-    {:ok, Map.merge(state, %{initialized_at: initialized_at})}
+    hook = ExIdobata.new_hook(@hook)
+    {:ok, Map.merge(state, %{initialized_at: initialized_at, hook: hook})}
   end
 
   def handle_info(:beacon, state) do
     now = NaiveDateTime.utc_now()
 
-    @hook
-    |> ExIdobata.new_hook()
-    |> ExIdobata.post(source: "initialized at #{state.initialized_at}, now #{now}")
+    ExIdobata.post(state.hook, source: "initialized at #{state.initialized_at}, now #{now}")
 
     {:noreply, state}
   end

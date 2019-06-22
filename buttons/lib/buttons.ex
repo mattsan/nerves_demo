@@ -11,8 +11,8 @@ defmodule Buttons do
   require Logger
 
   def start_link(opts) do
-    handler = Keyword.get(opts, :handler, fn _event, _button -> nil end)
-    GenServer.start_link(__MODULE__, %{handler: handler}, name: __MODULE__)
+    sink = Keyword.get(opts, :sink)
+    GenServer.start_link(__MODULE__, %{sink: sink}, name: __MODULE__)
   end
 
   def init(state) do
@@ -22,7 +22,9 @@ defmodule Buttons do
     GPIO.set_interrupts(i17, :both)
     GPIO.set_interrupts(i27, :both)
 
-    {:ok, Map.merge(state, %{i17: i17, i27: i27})}
+    hook = ExIdobata.new_hook(@hook)
+
+    {:ok, Map.merge(state, %{i17: i17, i27: i27, hook: hook})}
   end
 
   def handle_info({:circuits_gpio, pin, _timestamp, value}, state) do
@@ -39,12 +41,9 @@ defmodule Buttons do
         1 -> "pressed"
       end
 
-    # WebMonitorWeb.Endpoint.broadcast("room:lobby", event, %{button: button})
-    state.handler.(event, button)
+    send(state.sink, {:button_event, button, event})
 
-    @hook
-    |> ExIdobata.new_hook()
-    |> ExIdobata.post(source: "button #{button} #{event}")
+    ExIdobata.post(state.hook, source: "button #{button} #{event}")
 
     {:noreply, state}
   end

@@ -26,7 +26,9 @@ defmodule Firmware.Application do
     [
       # Starts a worker by calling: Firmware.Worker.start_link(arg)
       # {Firmware.Worker, arg},
-      {Beacon, []}
+      {Beacon, []},
+      {WebMonitorWeb.Button, []},
+      {Buttons, sink: WebMonitorWeb.Button}
     ]
   end
 end
