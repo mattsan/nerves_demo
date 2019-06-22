@@ -47,7 +47,7 @@ $ mix deps.get
 $ cd assets
 
 # assets をビルドします
-$ webpack --mode production
+$ npm install && npm run deploy
 
 # 元のディレクトリに戻ります
 $ cd ../..
